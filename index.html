@@ -1,0 +1,1134 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PropertiJatim.com — Jual Beli Properti Jawa Timur</title>
+<meta name="description" content="Cari rumah, apartemen, tanah di Jawa Timur. Analisa lokasi lengkap, skor lokasi, fasilitas sekitar. Surabaya, Malang, Sidoarjo, Gresik & seluruh Jatim.">
+<meta name="keywords" content="jual rumah surabaya, properti jawa timur, rumah murah malang, tanah sidoarjo">
+<meta property="og:title" content="PropertiJatim.com — Jual Beli Properti Jawa Timur">
+<meta property="og:description" content="Temukan properti impian di Jawa Timur dengan analisa lokasi cerdas.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://unpkg.com/lucide@latest"></script>
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        primary: { 50:'#eff3ff',100:'#dbe4fe',200:'#bfcefe',300:'#93aafd',400:'#6080fa',500:'#3b5cf5',600:'#2541ea',700:'#1e3a8a',800:'#1a2f6d',900:'#0f1d45',950:'#0a1230' },
+        accent: { 50:'#fff7ed',100:'#ffedd5',200:'#fed7aa',300:'#fdba74',400:'#fb923c',500:'#f97316',600:'#ea580c',700:'#c2410c',800:'#9a3412',900:'#7c2d12' },
+      },
+      fontFamily: { sans: ['Inter','system-ui','sans-serif'] },
+    }
+  }
+}
+</script>
+<style>
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Inter', system-ui, sans-serif; }
+  .page { display: none; }
+  .page.active { display: block; }
+  .line-clamp-1 { overflow:hidden; display:-webkit-box; -webkit-line-clamp:1; -webkit-box-orient:vertical; }
+  .line-clamp-2 { overflow:hidden; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; }
+  .line-clamp-3 { overflow:hidden; display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; }
+  input[type=range] { accent-color: #1e3a8a; }
+  .map-container { border-radius: 0.75rem; overflow: hidden; }
+  .toast { animation: slideIn 0.3s ease-out; }
+  @keyframes slideIn { from { transform: translateY(100px); opacity:0; } to { transform: translateY(0); opacity:1; } }
+  @keyframes pulse-dot { 0%,100% { opacity:1; } 50% { opacity:0.5; } }
+  .pulse-dot { animation: pulse-dot 2s ease-in-out infinite; }
+  .fade-in { animation: fadeIn 0.4s ease-out; }
+  @keyframes fadeIn { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
+  select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236b7280' d='M6 8L1 3h10z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; -webkit-appearance: none; -moz-appearance: none; appearance: none; padding-right: 32px; }
+</style>
+</head>
+<body class="bg-white text-gray-900 antialiased">
+
+<!-- ========== NAVBAR ========== -->
+<header id="navbar" class="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-gray-100 shadow-sm">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6">
+    <div class="flex items-center justify-between h-16">
+      <a href="#/" onclick="navigate('home')" class="flex items-center gap-2 group">
+        <div class="w-9 h-9 rounded-lg bg-primary-700 flex items-center justify-center">
+          <i data-lucide="building-2" class="w-5 h-5 text-white"></i>
+        </div>
+        <div class="flex flex-col">
+          <span class="text-lg font-bold text-primary-700 leading-tight">PropertiJatim</span>
+          <span class="text-[10px] text-gray-400 -mt-0.5 leading-none">Jawa Timur</span>
+        </div>
+      </a>
+      <nav class="hidden md:flex items-center gap-1">
+        <a href="#/" onclick="navigate('home')" class="px-4 py-2 text-sm font-medium text-gray-600 hover:text-primary-700 hover:bg-primary-50 rounded-lg transition-colors">Beranda</a>
+        <a href="#/properti" onclick="navigate('listing')" class="px-4 py-2 text-sm font-medium text-gray-600 hover:text-primary-700 hover:bg-primary-50 rounded-lg transition-colors">Properti</a>
+        <a href="#/kpr" onclick="navigate('kpr')" class="px-4 py-2 text-sm font-medium text-gray-600 hover:text-primary-700 hover:bg-primary-50 rounded-lg transition-colors">KPR Calculator</a>
+        <a href="#/blog" onclick="navigate('blog')" class="px-4 py-2 text-sm font-medium text-gray-600 hover:text-primary-700 hover:bg-primary-50 rounded-lg transition-colors">Artikel</a>
+      </nav>
+      <div class="hidden md:flex items-center gap-3">
+        <button onclick="navigate('login')" class="h-9 px-4 text-sm font-medium border border-primary-700 text-primary-700 hover:bg-primary-50 rounded-lg transition-colors">Masuk</button>
+        <button onclick="navigate('dashboard')" class="h-9 px-4 text-sm font-medium bg-accent-500 hover:bg-accent-600 text-white rounded-lg transition-colors">Pasang Iklan</button>
+      </div>
+      <button id="mobileMenuBtn" onclick="toggleMobileMenu()" class="md:hidden p-2 text-gray-600 hover:text-primary-700" aria-label="Toggle menu">
+        <i data-lucide="menu" class="w-6 h-6"></i>
+      </button>
+    </div>
+    <div id="mobileMenu" class="md:hidden hidden border-t border-gray-100 py-4 space-y-1">
+      <a href="#/" onclick="navigate('home');toggleMobileMenu()" class="flex items-center gap-3 px-4 py-3 text-gray-600 hover:text-primary-700 hover:bg-primary-50 rounded-lg"><i data-lucide="home" class="w-5 h-5"></i><span class="font-medium">Beranda</span></a>
+      <a href="#/properti" onclick="navigate('listing');toggleMobileMenu()" class="flex items-center gap-3 px-4 py-3 text-gray-600 hover:text-primary-700 hover:bg-primary-50 rounded-lg"><i data-lucide="building-2" class="w-5 h-5"></i><span class="font-medium">Properti</span></a>
+      <a href="#/kpr" onclick="navigate('kpr');toggleMobileMenu()" class="flex items-center gap-3 px-4 py-3 text-gray-600 hover:text-primary-700 hover:bg-primary-50 rounded-lg"><i data-lucide="calculator" class="w-5 h-5"></i><span class="font-medium">KPR Calculator</span></a>
+      <a href="#/blog" onclick="navigate('blog');toggleMobileMenu()" class="flex items-center gap-3 px-4 py-3 text-gray-600 hover:text-primary-700 hover:bg-primary-50 rounded-lg"><i data-lucide="file-text" class="w-5 h-5"></i><span class="font-medium">Artikel</span></a>
+      <div class="pt-3 px-4 flex gap-3">
+        <button onclick="navigate('login');toggleMobileMenu()" class="flex-1 h-10 text-sm font-medium border border-primary-700 text-primary-700 rounded-lg">Masuk</button>
+        <button onclick="navigate('dashboard');toggleMobileMenu()" class="flex-1 h-10 text-sm font-medium bg-accent-500 text-white rounded-lg">Pasang Iklan</button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ========== PAGE: HOME ========== -->
+<div id="page-home" class="page active">
+  <!-- Hero -->
+  <section class="relative overflow-hidden bg-gradient-to-br from-primary-900 via-primary-800 to-primary-950">
+    <div class="absolute inset-0"><div class="absolute top-0 left-1/4 w-96 h-96 bg-accent-500/10 rounded-full blur-3xl"></div><div class="absolute bottom-0 right-1/4 w-80 h-80 bg-primary-400/10 rounded-full blur-3xl"></div></div>
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 pt-12 pb-20 md:pt-20 md:pb-28">
+      <div class="text-center max-w-3xl mx-auto mb-10">
+        <span class="inline-block mb-4 px-3 py-1 rounded-full bg-accent-500/20 text-accent-300 border border-accent-500/30 text-sm font-medium">🔍 Analisa Lokasi Cerdas</span>
+        <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6">Cari Properti Impian di <span class="text-accent-400">Jawa Timur</span></h1>
+        <p class="text-lg md:text-xl text-primary-200 leading-relaxed max-w-2xl mx-auto">Temukan rumah, apartemen, dan tanah di Jatim dengan <strong class="text-accent-300">Skor Lokasi</strong> & analisa fasilitas sekitar terlengkap.</p>
+      </div>
+      <!-- Search -->
+      <div class="max-w-4xl mx-auto bg-white rounded-2xl shadow-xl p-4 sm:p-6 border border-gray-100">
+        <div class="flex flex-col sm:flex-row gap-3">
+          <div class="flex-1 relative">
+            <i data-lucide="map-pin" class="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400"></i>
+            <select id="heroKota" class="w-full h-12 pl-10 pr-4 rounded-xl border border-gray-200 bg-gray-50 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500">
+              <option value="">Pilih Kota / Kabupaten</option>
+            </select>
+          </div>
+          <select id="heroTipe" class="h-12 px-4 rounded-xl border border-gray-200 bg-gray-50 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500">
+            <option value="">Semua Tipe</option>
+            <option value="rumah">Rumah</option><option value="apartemen">Apartemen</option><option value="ruko">Ruko</option><option value="tanah">Tanah</option><option value="villa">Villa</option>
+          </select>
+          <button onclick="searchFromHero()" class="h-12 px-8 bg-primary-700 hover:bg-primary-800 text-white rounded-xl font-semibold flex items-center justify-center gap-2 transition-colors"><i data-lucide="search" class="w-4 h-4"></i>Cari Properti</button>
+        </div>
+      </div>
+      <div class="mt-12 flex flex-wrap justify-center gap-8 md:gap-16">
+        <div class="text-center"><div class="text-2xl md:text-3xl font-bold text-white">1,200+</div><div class="text-sm text-primary-300 mt-1">Properti Aktif</div></div>
+        <div class="text-center"><div class="text-2xl md:text-3xl font-bold text-white">8</div><div class="text-sm text-primary-300 mt-1">Kota di Jatim</div></div>
+        <div class="text-center"><div class="text-2xl md:text-3xl font-bold text-white">500+</div><div class="text-sm text-primary-300 mt-1">Agen Terdaftar</div></div>
+        <div class="text-center"><div class="text-2xl md:text-3xl font-bold text-white">4.8★</div><div class="text-sm text-primary-300 mt-1">Rating User</div></div>
+      </div>
+    </div>
+    <div class="absolute bottom-0 left-0 right-0"><svg viewBox="0 0 1440 80" fill="none" class="w-full"><path d="M0 40C360 80 720 0 1080 40C1260 60 1380 50 1440 40V80H0V40Z" fill="white"/></svg></div>
+  </section>
+
+  <!-- Featured Properties -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 py-16 md:py-20">
+    <div class="flex items-end justify-between mb-8">
+      <div><h2 class="text-2xl md:text-3xl font-bold text-gray-900">Properti Pilihan</h2><p class="text-gray-500 mt-1">Listing terbaik dengan lokasi strategis di Jawa Timur</p></div>
+      <a href="#/properti" onclick="navigate('listing')" class="hidden sm:flex items-center gap-1 text-primary-700 font-semibold hover:gap-2 transition-all">Lihat Semua <i data-lucide="arrow-right" class="w-4 h-4"></i></a>
+    </div>
+    <div id="featuredGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+  </section>
+
+  <!-- USP Section -->
+  <section class="bg-gray-50 py-16 md:py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+      <div class="text-center mb-12">
+        <span class="inline-block mb-3 px-3 py-1 rounded-full bg-primary-100 text-primary-700 text-sm font-medium">Fitur Unggulan</span>
+        <h2 class="text-2xl md:text-3xl font-bold text-gray-900 mb-3">Analisa Lokasi Bangunan Sekitar</h2>
+        <p class="text-gray-500 max-w-2xl mx-auto">Satu-satunya portal properti Jatim yang memberikan skor lokasi & analisa fasilitas sekitar secara real-time.</p>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 hover:shadow-md transition-shadow"><div class="w-12 h-12 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center mb-4"><i data-lucide="map-pin" class="w-6 h-6"></i></div><h3 class="font-bold text-gray-900 mb-2">Peta Interaktif</h3><p class="text-sm text-gray-500 leading-relaxed">Lihat lokasi properti di peta dengan radius 500m hingga 5km. Temukan apa saja di sekitar rumah impianmu.</p></div>
+        <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 hover:shadow-md transition-shadow"><div class="w-12 h-12 rounded-xl bg-accent-50 text-accent-600 flex items-center justify-center mb-4"><i data-lucide="bar-chart-3" class="w-6 h-6"></i></div><h3 class="font-bold text-gray-900 mb-2">Skor Lokasi AI</h3><p class="text-sm text-gray-500 leading-relaxed">Skor 1-10 berdasarkan kedekatan ke fasilitas penting. "8.5/10 Sangat Strategis — Dekat Unair & RSUD".</p></div>
+        <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 hover:shadow-md transition-shadow"><div class="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center mb-4"><i data-lucide="shield" class="w-6 h-6"></i></div><h3 class="font-bold text-gray-900 mb-2">Auto-Detect POI</h3><p class="text-sm text-gray-500 leading-relaxed">Sekolah, RS, Mall, Stasiun, Masjid — semua terdeteksi otomatis dalam radius yang kamu pilih.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Cities -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 py-16 md:py-20">
+    <h2 class="text-2xl md:text-3xl font-bold text-gray-900 mb-8 text-center">Jelajahi per Kota</h2>
+    <div id="citiesGrid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4"></div>
+  </section>
+
+  <!-- CTA -->
+  <section class="bg-primary-700 py-16 md:py-20">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 text-center">
+      <h2 class="text-2xl md:text-3xl font-bold text-white mb-4">Punya Properti yang Ingin Dijual?</h2>
+      <p class="text-primary-200 mb-8 text-lg">Pasang iklan gratis dan temukan pembeli dari seluruh Jawa Timur.</p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <button onclick="navigate('dashboard')" class="h-12 px-8 bg-accent-500 hover:bg-accent-600 text-white rounded-xl font-semibold transition-colors">Pasang Iklan Gratis</button>
+        <button onclick="navigate('login')" class="h-12 px-8 border border-white/30 text-white hover:bg-white/10 rounded-xl font-semibold transition-colors">Login Agen</button>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ========== PAGE: LISTING ========== -->
+<div id="page-listing" class="page">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 py-8">
+    <div class="mb-8"><h1 class="text-2xl md:text-3xl font-bold text-gray-900">Properti di Jawa Timur</h1><p id="listingCount" class="text-gray-500 mt-1">10 properti ditemukan</p></div>
+    <!-- Search -->
+    <div class="bg-white rounded-2xl shadow-lg p-4 sm:p-6 border border-gray-100 mb-6">
+      <div class="flex flex-col sm:flex-row gap-3">
+        <select id="filterKota" onchange="applyFilters()" class="flex-1 h-12 px-4 rounded-xl border border-gray-200 bg-gray-50 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500"></select>
+        <select id="filterTipe" onchange="applyFilters()" class="h-12 px-4 rounded-xl border border-gray-200 bg-gray-50 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500"><option value="">Semua Tipe</option><option value="rumah">Rumah</option><option value="apartemen">Apartemen</option><option value="ruko">Ruko</option><option value="tanah">Tanah</option><option value="villa">Villa</option></select>
+        <select id="filterStatus" onchange="applyFilters()" class="h-12 px-4 rounded-xl border border-gray-200 bg-gray-50 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500"><option value="">Semua Status</option><option value="dijual">Dijual</option><option value="disewa">Disewa</option><option value="dp0">DP 0%</option></select>
+        <select id="filterHarga" onchange="applyFilters()" class="h-12 px-4 rounded-xl border border-gray-200 bg-gray-50 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500"><option value="">Semua Harga</option><option value="0-500000000">< 500 Jt</option><option value="500000000-1000000000">500 Jt - 1 M</option><option value="1000000000-2000000000">1 M - 2 M</option><option value="2000000000-5000000000">2 M - 5 M</option><option value="5000000000-99999999999">> 5 M</option></select>
+      </div>
+    </div>
+    <!-- Quick filters -->
+    <div id="quickFilters" class="flex flex-wrap gap-2 mb-6"></div>
+    <!-- Grid -->
+    <div id="listingGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+    <!-- Pagination -->
+    <div id="pagination" class="flex justify-center gap-2 mt-10"></div>
+  </div>
+</div>
+
+<!-- ========== PAGE: DETAIL ========== -->
+<div id="page-detail" class="page">
+  <div id="detailContent" class="max-w-7xl mx-auto px-4 sm:px-6 py-6"></div>
+</div>
+
+<!-- ========== PAGE: DASHBOARD ========== -->
+<div id="page-dashboard" class="page">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 py-8">
+    <div class="flex items-center justify-between mb-8">
+      <div><h1 class="text-2xl font-bold text-gray-900">Dashboard Agen</h1><p class="text-gray-500 mt-1">Kelola listing properti Anda</p></div>
+      <button onclick="showAddForm()" class="h-10 px-5 bg-accent-500 hover:bg-accent-600 text-white rounded-lg font-medium flex items-center gap-2 transition-colors"><i data-lucide="plus" class="w-4 h-4"></i>Tambah Properti</button>
+    </div>
+    <!-- Stats -->
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
+      <div class="bg-white rounded-xl border border-gray-200 p-5"><div class="flex items-center gap-3"><div class="w-10 h-10 rounded-lg bg-primary-100 text-primary-700 flex items-center justify-center"><i data-lucide="building-2" class="w-5 h-5"></i></div><div><div class="text-sm text-gray-400">Total Listing</div><div id="statTotal" class="text-2xl font-bold text-gray-900">10</div></div></div></div>
+      <div class="bg-white rounded-xl border border-gray-200 p-5"><div class="flex items-center gap-3"><div class="w-10 h-10 rounded-lg bg-blue-100 text-blue-700 flex items-center justify-center"><i data-lucide="eye" class="w-5 h-5"></i></div><div><div class="text-sm text-gray-400">Total Views</div><div id="statViews" class="text-2xl font-bold text-gray-900">0</div></div></div></div>
+      <div class="bg-white rounded-xl border border-gray-200 p-5"><div class="flex items-center gap-3"><div class="w-10 h-10 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center"><i data-lucide="trending-up" class="w-5 h-5"></i></div><div><div class="text-sm text-gray-400">Listing Aktif</div><div id="statActive" class="text-2xl font-bold text-gray-900">10</div></div></div></div>
+    </div>
+    <!-- Table -->
+    <div class="bg-white rounded-xl border border-gray-200 overflow-hidden">
+      <div class="p-5 border-b border-gray-100"><h2 class="font-bold text-gray-900">Listing Saya</h2></div>
+      <div class="overflow-x-auto"><table class="w-full"><thead><tr class="bg-gray-50 text-sm text-gray-500"><th class="text-left px-5 py-3 font-medium">Properti</th><th class="text-left px-5 py-3 font-medium hidden sm:table-cell">Harga</th><th class="text-left px-5 py-3 font-medium">Status</th><th class="text-left px-5 py-3 font-medium hidden md:table-cell">Views</th><th class="text-right px-5 py-3 font-medium">Aksi</th></tr></thead><tbody id="dashTableBody" class="divide-y divide-gray-50"></tbody></table></div>
+    </div>
+    <!-- Add/Edit Form Modal -->
+    <div id="addFormModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/50 p-4">
+      <div class="bg-white rounded-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto p-6 space-y-4">
+        <div class="flex items-center justify-between"><h2 id="formTitle" class="text-xl font-bold text-gray-900">Tambah Properti Baru</h2><button onclick="closeAddForm()" class="p-2 text-gray-400 hover:text-gray-600"><i data-lucide="x" class="w-5 h-5"></i></button></div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div class="sm:col-span-2"><label class="block text-sm font-medium text-gray-600 mb-1">Judul Properti *</label><input id="fJudul" class="w-full h-10 px-3 rounded-lg border border-gray-200 bg-gray-50 text-sm" placeholder="Rumah Modern 2 Lantai Sukolilo" required></div>
+          <div><label class="block text-sm font-medium text-gray-600 mb-1">Harga (Rp) *</label><input id="fHarga" type="number" class="w-full h-10 px-3 rounded-lg border border-gray-200 bg-gray-50 text-sm" placeholder="1850000000"></div>
+          <div><label class="block text-sm font-medium text-gray-600 mb-1">Status</label><select id="fStatus" class="w-full h-10 px-3 rounded-lg border border-gray-200 bg-gray-50 text-sm"><option value="dijual">Dijual</option><option value="disewa">Disewa</option><option value="dp0">DP 0%</option></select></div>
+          <div><label class="block text-sm font-medium text-gray-600 mb-1">Tipe</label><select id="fTipe" class="w-full h-10 px-3 rounded-lg border border-gray-200 bg-gray-50 text-sm"><option value="rumah">Rumah</option><option value="apartemen">Apartemen</option><option value="ruko">Ruko</option><option value="tanah">Tanah</option><option value="villa">Villa</option></select></div>
+          <div><label class="block text-sm font-medium text-gray-600 mb-1">Kota</label><select id="fKota" class="w-full h-10 px-3 rounded-lg border border-gray-200 bg-gray-50 text-sm"></select></div>
+          <div class="sm:col-span-2"><label class="block text-sm font-medium text-gray-600 mb-1">Alamat Lengkap *</label><input id="fAlamat" class="w-full h-10 px-3 rounded-lg border border-gray-200 bg-gray-50 text-sm" placeholder="Jl. Sukolilo Baru No. 15, Surabaya"></div>
+          <div><label class="block text-sm font-medium text-gray-600 mb-1">Luas Tanah (m²)</label><input id="fLT" type="number" class="w-full h-10 px-3 rounded-lg border border-gray-200 bg-gray-50 text-sm" placeholder="150"></div>
+          <div><label class="block text-sm font-medium text-gray-600 mb-1">Luas Bangunan (m²)</label><input id="fLB" type="number" class="w-full h-10 px-3 rounded-lg border border-gray-200 bg-gray-50 text-sm" placeholder="200"></div>
+          <div><label class="block text-sm font-medium text-gray-600 mb-1">Kamar Tidur</label><input id="fKT" type="number" class="w-full h-10 px-3 rounded-lg border border-gray-200 bg-gray-50 text-sm" placeholder="4"></div>
+          <div><label class="block text-sm font-medium text-gray-600 mb-1">Kamar Mandi</label><input id="fKM" type="number" class="w-full h-10 px-3 rounded-lg border border-gray-200 bg-gray-50 text-sm" placeholder="3"></div>
+          <div><label class="block text-sm font-medium text-gray-600 mb-1">Sertifikat</label><select id="fSertifikat" class="w-full h-10 px-3 rounded-lg border border-gray-200 bg-gray-50 text-sm"><option>SHM</option><option>SHGB</option><option>AJB</option><option>Girik</option><option>Lainnya</option></select></div>
+          <div><label class="block text-sm font-medium text-gray-600 mb-1">Latitude</label><input id="fLat" type="number" step="any" class="w-full h-10 px-3 rounded-lg border border-gray-200 bg-gray-50 text-sm" placeholder="-7.2906"></div>
+          <div><label class="block text-sm font-medium text-gray-600 mb-1">Longitude</label><input id="fLng" type="number" step="any" class="w-full h-10 px-3 rounded-lg border border-gray-200 bg-gray-50 text-sm" placeholder="112.7854"></div>
+          <div class="sm:col-span-2"><label class="block text-sm font-medium text-gray-600 mb-1">Deskripsi</label><textarea id="fDeskripsi" rows="3" class="w-full rounded-lg border border-gray-200 bg-gray-50 px-3 py-2 text-sm resize-none" placeholder="Deskripsi lengkap properti..."></textarea></div>
+        </div>
+        <div class="flex gap-3 pt-2"><button onclick="saveProperty()" class="flex-1 h-11 bg-primary-700 hover:bg-primary-800 text-white rounded-lg font-semibold transition-colors">Simpan</button><button onclick="closeAddForm()" class="h-11 px-6 border border-gray-200 rounded-lg text-gray-600 font-medium hover:bg-gray-50 transition-colors">Batal</button></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ========== PAGE: LOGIN ========== -->
+<div id="page-login" class="page">
+  <div class="min-h-[70vh] flex items-center justify-center px-4 py-12">
+    <div class="w-full max-w-md">
+      <div class="text-center mb-8"><div class="w-14 h-14 rounded-xl bg-primary-700 flex items-center justify-center mx-auto mb-4"><i data-lucide="building-2" class="w-7 h-7 text-white"></i></div><h1 class="text-2xl font-bold text-gray-900">Masuk sebagai Agen</h1><p class="text-gray-500 mt-2">Login untuk mengelola listing properti Anda</p></div>
+      <div class="bg-white rounded-2xl border border-gray-200 p-6 space-y-4">
+        <div><label class="block text-sm font-medium text-gray-600 mb-1">Email</label><input id="loginEmail" type="email" class="w-full h-11 px-4 rounded-lg border border-gray-200 bg-gray-50 text-sm" placeholder="agen@propertijatim.com"></div>
+        <div><label class="block text-sm font-medium text-gray-600 mb-1">Password</label><input id="loginPass" type="password" class="w-full h-11 px-4 rounded-lg border border-gray-200 bg-gray-50 text-sm" placeholder="••••••••"></div>
+        <button onclick="doLogin()" class="w-full h-11 bg-primary-700 hover:bg-primary-800 text-white rounded-lg font-semibold transition-colors">Masuk</button>
+        <p class="text-center text-sm text-gray-400">Demo: masukkan email & password apapun</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ========== PAGE: KPR ========== -->
+<div id="page-kpr" class="page">
+  <div class="max-w-2xl mx-auto px-4 sm:px-6 py-12">
+    <div class="text-center mb-8"><h1 class="text-2xl md:text-3xl font-bold text-gray-900">Simulasi KPR</h1><p class="text-gray-500 mt-2">Hitung estimasi cicilan KPR per bulan</p></div>
+    <div class="bg-white rounded-2xl border border-gray-200 p-6 space-y-5">
+      <div><label class="block text-sm font-medium text-gray-600 mb-1">Harga Properti (Rp)</label><input id="kprHarga" type="number" value="1500000000" oninput="calcKPR()" class="w-full h-11 px-4 rounded-lg border border-gray-200 bg-gray-50 text-sm"></div>
+      <div><div class="flex justify-between mb-1"><label class="text-sm font-medium text-gray-600">Uang Muka (DP)</label><span id="kprDpLabel" class="text-sm font-semibold text-primary-700">20% = Rp 300.000.000</span></div><input id="kprDP" type="range" min="0" max="50" step="5" value="20" oninput="calcKPR()" class="w-full"></div>
+      <div><div class="flex justify-between mb-1"><label class="text-sm font-medium text-gray-600">Tenor</label><span id="kprTenorLabel" class="text-sm font-semibold text-primary-700">20 tahun</span></div><input id="kprTenor" type="range" min="5" max="30" step="5" value="20" oninput="calcKPR()" class="w-full"></div>
+      <div><div class="flex justify-between mb-1"><label class="text-sm font-medium text-gray-600">Suku Bunga / tahun</label><span id="kprBungaLabel" class="text-sm font-semibold text-primary-700">7.5%</span></div><input id="kprBunga" type="range" min="3" max="15" step="0.5" value="7.5" oninput="calcKPR()" class="w-full"></div>
+    </div>
+    <div id="kprResult" class="mt-6 bg-primary-50 rounded-2xl p-6 space-y-4">
+      <div class="text-center"><div class="text-sm text-gray-500">Cicilan per Bulan</div><div id="kprCicilan" class="text-3xl font-bold text-primary-700">Rp 0</div></div>
+      <div class="border-t border-primary-200 pt-4 space-y-2 text-sm">
+        <div class="flex justify-between"><span class="text-gray-500">Uang Muka</span><span id="kprDpVal" class="font-medium">Rp 0</span></div>
+        <div class="flex justify-between"><span class="text-gray-500">Jumlah Pinjaman</span><span id="kprPinjaman" class="font-medium">Rp 0</span></div>
+        <div class="flex justify-between"><span class="text-gray-500">Total Bunga</span><span id="kprTotalBunga" class="font-medium text-accent-600">Rp 0</span></div>
+        <div class="flex justify-between font-semibold border-t border-primary-200 pt-2"><span>Total Pembayaran</span><span id="kprTotalBayar" class="text-primary-700">Rp 0</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ========== PAGE: BLOG ========== -->
+<div id="page-blog" class="page">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 py-12">
+    <h1 class="text-2xl md:text-3xl font-bold text-gray-900 mb-8">Tips & Artikel Properti</h1>
+    <div id="blogGrid" class="space-y-6"></div>
+  </div>
+</div>
+
+<!-- ========== FOOTER ========== -->
+<footer class="bg-primary-900 text-white">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 py-12">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+      <div><div class="flex items-center gap-2 mb-4"><div class="w-9 h-9 rounded-lg bg-accent-500 flex items-center justify-center"><i data-lucide="building-2" class="w-5 h-5 text-white"></i></div><span class="text-lg font-bold">PropertiJatim</span></div><p class="text-sm text-primary-200 leading-relaxed">Platform jual beli properti di Jawa Timur dengan analisa lokasi cerdas. Temukan rumah impian dengan skor lokasi terbaik.</p></div>
+      <div><h4 class="font-semibold mb-4 text-accent-400">Kota Populer</h4><ul class="space-y-2 text-sm text-primary-200"><li><a href="#/properti" onclick="navigate('listing');setFilterKota('Surabaya')" class="hover:text-white transition-colors">Properti Surabaya</a></li><li><a href="#/properti" onclick="navigate('listing');setFilterKota('Malang')" class="hover:text-white transition-colors">Properti Malang</a></li><li><a href="#/properti" onclick="navigate('listing');setFilterKota('Sidoarjo')" class="hover:text-white transition-colors">Properti Sidoarjo</a></li><li><a href="#/properti" onclick="navigate('listing');setFilterKota('Gresik')" class="hover:text-white transition-colors">Properti Gresik</a></li><li><a href="#/properti" onclick="navigate('listing');setFilterKota('Kediri')" class="hover:text-white transition-colors">Properti Kediri</a></li></ul></div>
+      <div><h4 class="font-semibold mb-4 text-accent-400">Tipe Properti</h4><ul class="space-y-2 text-sm text-primary-200"><li><a href="#/properti" onclick="navigate('listing');setFilterTipe('rumah')" class="hover:text-white transition-colors">Rumah Jatim</a></li><li><a href="#/properti" onclick="navigate('listing');setFilterTipe('apartemen')" class="hover:text-white transition-colors">Apartemen Jatim</a></li><li><a href="#/properti" onclick="navigate('listing');setFilterTipe('ruko')" class="hover:text-white transition-colors">Ruko Jatim</a></li><li><a href="#/properti" onclick="navigate('listing');setFilterTipe('tanah')" class="hover:text-white transition-colors">Tanah Jatim</a></li></ul></div>
+      <div><h4 class="font-semibold mb-4 text-accent-400">Informasi</h4><ul class="space-y-2 text-sm text-primary-200"><li><a href="#/blog" onclick="navigate('blog')" class="hover:text-white transition-colors">Tips Properti</a></li><li><a href="#/kpr" onclick="navigate('kpr')" class="hover:text-white transition-colors">KPR Calculator</a></li><li><a href="#/login" onclick="navigate('login')" class="hover:text-white transition-colors">Login Agen</a></li></ul></div>
+    </div>
+    <div class="border-t border-primary-700 mt-10 pt-6 text-center text-sm text-primary-300">© 2025 PropertiJatim.com — Semua hak dilindungi. Jawa Timur, Indonesia.</div>
+  </div>
+</footer>
+
+<!-- WA Float -->
+<a href="https://wa.me/6281234567890?text=Halo%2C%20saya%20tertarik%20dengan%20properti%20di%20PropertiJatim.com" target="_blank" rel="noopener noreferrer" class="fixed bottom-6 right-6 z-50 bg-green-500 hover:bg-green-600 text-white w-14 h-14 rounded-full flex items-center justify-center shadow-lg hover:shadow-xl transition-all hover:scale-110" aria-label="Chat WhatsApp"><i data-lucide="message-circle" class="w-6 h-6"></i></a>
+
+<!-- Toast Container -->
+<div id="toastContainer" class="fixed bottom-24 right-6 z-50 space-y-2"></div>
+
+<script>
+// ========== DATA ==========
+const CITIES = ['Surabaya','Malang','Sidoarjo','Gresik','Kediri','Jember','Madiun','Mojokerto','Pasuruan','Blitar'];
+const CITY_COUNTS = {'Surabaya':'450+','Malang':'230+','Sidoarjo':'180+','Gresik':'120+','Kediri':'95+','Jember':'60+','Madiun':'45+','Mojokerto':'35+','Pasuruan':'30+','Blitar':'25+'};
+const CITY_COORDS = {'Surabaya':[-7.2575,112.7521],'Malang':[-7.9666,112.6326],'Sidoarjo':[-7.4478,112.7183],'Gresik':[-7.1620,112.6530],'Kediri':[-7.8232,112.0149],'Jember':[-8.1720,113.6889],'Madiun':[-7.6297,111.5239],'Mojokerto':[-7.4705,112.4397],'Pasuruan':[-7.6385,112.8980],'Blitar':[-8.0983,112.1567]};
+
+let properties = [
+  {id:'1',judul:'Rumah Modern 2 Lantai Sukolilo',slug:'rumah-modern-2-lantai-sukolilo',deskripsi:'Rumah modern 2 lantai di kawasan Sukolilo, Surabaya. Dekat dengan kampus ITS dan Unair. Lingkungan asri, aman, dan nyaman untuk keluarga. Dilengkapi dengan carport untuk 2 mobil, taman depan dan belakang, serta ruang serbaguna di lantai 2.',harga:1850000000,status:'dijual',tipe:'rumah',alamat:'Jl. Sukolilo Baru No. 15, Sukolilo, Surabaya',city_name:'Surabaya',lat:-7.2906,lng:112.7854,luas_tanah:150,luas_bangunan:200,kamar_tidur:4,kamar_mandi:3,lantai:2,tahun_bangun:2022,sertifikat:'SHM',kondisi:'Baru',fasilitas:['Carport','Taman','Dapur','Ruang Keluarga','PAM','Listrik 2200W'],foto_urls:['https://picsum.photos/seed/rumah1/800/600','https://picsum.photos/seed/rumah1b/800/600','https://picsum.photos/seed/rumah1c/800/600'],views:245,is_featured:true},
+  {id:'2',judul:'Cluster Green Park Rungkut Asri',slug:'cluster-green-park-rungkut-asri',deskripsi:'Rumah cluster minimalis di Rungkut Asri, Surabaya. One gate system dengan keamanan 24 jam. Cocok untuk pasangan muda atau investasi properti. Dekat dengan Tol Waru-Juanda.',harga:950000000,status:'dp0',tipe:'rumah',alamat:'Jl. Rungkut Asri Barat No. 8, Rungkut, Surabaya',city_name:'Surabaya',lat:-7.3263,lng:112.7692,luas_tanah:84,luas_bangunan:60,kamar_tidur:2,kamar_mandi:1,lantai:1,tahun_bangun:2023,sertifikat:'SHM',kondisi:'Baru',fasilitas:['Carport','CCTV','One Gate','Taman Bermain'],foto_urls:['https://picsum.photos/seed/rumah2/800/600','https://picsum.photos/seed/rumah2b/800/600'],views:189,is_featured:true},
+  {id:'3',judul:'Rumah Mewah Darmo Permai',slug:'rumah-mewah-darmo-permai',deskripsi:'Rumah mewah di kawasan elit Darmo Permai, Surabaya. Kolam renang pribadi, taman luas, smart home system. Lokasi premium dekat dengan galeri, restoran fine dining, dan RS Surabaya.',harga:5500000000,status:'dijual',tipe:'rumah',alamat:'Jl. Darmo Permai Selatan No. 22, Darmo, Surabaya',city_name:'Surabaya',lat:-7.2847,lng:112.7383,luas_tanah:350,luas_bangunan:400,kamar_tidur:5,kamar_mandi:4,lantai:2,tahun_bangun:2020,sertifikat:'SHM',kondisi:'Bagus',fasilitas:['Kolam Renang','Smart Home','Carport 3 Mobil','Taman','Ruang Kerja','Gudang'],foto_urls:['https://picsum.photos/seed/rumah3/800/600','https://picsum.photos/seed/rumah3b/800/600','https://picsum.photos/seed/rumah3c/800/600'],views:412,is_featured:true},
+  {id:'4',judul:'Apartemen Pakuwon City Tower Vancouver',slug:'apartemen-pakuwon-city',deskripsi:'Unit apartemen fully furnished di Pakuwon City. View kota Surabaya yang memukau. Akses langsung ke Pakuwon Mall. Cocok untuk investasi atau hunian single professional.',harga:1200000000,status:'dijual',tipe:'apartemen',alamat:'Pakuwon City, Tower Vancouver #28-F, Surabaya',city_name:'Surabaya',lat:-7.2893,lng:112.6887,luas_tanah:0,luas_bangunan:48,kamar_tidur:2,kamar_mandi:1,lantai:28,tahun_bangun:2018,sertifikat:'SHGB',kondisi:'Bagus',fasilitas:['Full Furnished','Swimming Pool','Gym','Jogging Track','Mini Market'],foto_urls:['https://picsum.photos/seed/apt1/800/600','https://picsum.photos/seed/apt1b/800/600'],views:321,is_featured:false},
+  {id:'5',judul:'Ruko 3 Lantai Jalan Mayjen Sungkono',slug:'ruko-mayjen-sungkono',deskripsi:'Ruko strategis 3 lantai di jalan utama Mayjen Sungkono, Surabaya. Cocok untuk usaha kuliner, retail, atau kantor. Lalu lalang kendaraan tinggi, dekat dengan kawasan bisnis.',harga:3800000000,status:'dijual',tipe:'ruko',alamat:'Jl. Mayjen Sungkono No. 108, Surabaya',city_name:'Surabaya',lat:-7.2614,lng:112.7386,luas_tanah:100,luas_bangunan:240,kamar_tidur:null,kamar_mandi:3,lantai:3,tahun_bangun:2019,sertifikat:'SHM',kondisi:'Bagus',fasilitas:['Parkir Luas','Listrik 3500W','Rolling Door'],foto_urls:['https://picsum.photos/seed/ruko1/800/600'],views:178,is_featured:false},
+  {id:'6',judul:'Rumah Minimalis Perumahan Gresik City',slug:'rumah-gresik-city',deskripsi:'Rumah minimalis type 45 di Gresik City Residence. Kavling hoek, extra tanah samping. Lingkungan keluarga, dekat dengan Sekolah, Masjid, dan akses tol Gresik.',harga:680000000,status:'dijual',tipe:'rumah',alamat:'Gresik City Residence Blok D-12, Gresik',city_name:'Gresik',lat:-7.162,lng:112.653,luas_tanah:90,luas_bangunan:45,kamar_tidur:2,kamar_mandi:1,lantai:1,tahun_bangun:2021,sertifikat:'SHM',kondisi:'Bagus',fasilitas:['Carport','Taman','PAM','One Gate'],foto_urls:['https://picsum.photos/seed/gresik1/800/600','https://picsum.photos/seed/gresik1b/800/600'],views:134,is_featured:false},
+  {id:'7',judul:'Villa Homestay Batu Malang',slug:'villa-homestay-batu-malang',deskripsi:'Villa cantik di kawasan wisata Batu, Malang. Sudah beroperasi sebagai homestay dengan occupancy rate 75%. Panorama Gunung Panderman, sejuk dan asri. Cocok untuk investasi hospitality.',harga:2800000000,status:'dijual',tipe:'villa',alamat:'Jl. Raya Selecta No. 45, Batu, Malang',city_name:'Malang',lat:-7.8732,lng:112.5256,luas_tanah:300,luas_bangunan:180,kamar_tidur:4,kamar_mandi:3,lantai:2,tahun_bangun:2019,sertifikat:'SHM',kondisi:'Bagus',fasilitas:['Kolam Renang','Taman Luas','BBQ Area','Parkir 5 Mobil','WiFi','View Gunung'],foto_urls:['https://picsum.photos/seed/villa1/800/600','https://picsum.photos/seed/villa1b/800/600'],views:567,is_featured:true},
+  {id:'8',judul:'Rumah di Perumahan Dinoyo Green Malang',slug:'rumah-dinoyo-green-malang',deskripsi:'Rumah minimalis modern di kawasan Dinoyo, Malang. Walking distance ke Universitas Brawijaya. Ideal untuk keluarga mahasiswa atau investasi kost-kostan.',harga:1250000000,status:'disewa',tipe:'rumah',alamat:'Jl. Dinoyo Green No. 7, Lowokwaru, Malang',city_name:'Malang',lat:-7.942,lng:112.6176,luas_tanah:120,luas_bangunan:90,kamar_tidur:3,kamar_mandi:2,lantai:2,tahun_bangun:2020,sertifikat:'SHM',kondisi:'Bagus',fasilitas:['Carport','Dapur','Taman','PAM'],foto_urls:['https://picsum.photos/seed/malang1/800/600','https://picsum.photos/seed/malang1b/800/600'],views:98,is_featured:false},
+  {id:'9',judul:'Tanah Kavling Premium Sidoarjo',slug:'tanah-kavling-sidoarjo',deskripsi:'Tanah kavling premium di kawasan berkembang Sidoarjo. Dekat dengan exit tol Sidoarjo dan area industri. SHM, legalitas jelas. Ideal untuk pembangunan rumah atau investasi jangka panjang.',harga:450000000,status:'dijual',tipe:'tanah',alamat:'Jl. Raya Sidoarjo-Gedangan KM 5, Sidoarjo',city_name:'Sidoarjo',lat:-7.4478,lng:112.7183,luas_tanah:200,luas_bangunan:0,kamar_tidur:null,kamar_mandi:null,lantai:null,tahun_bangun:null,sertifikat:'SHM',kondisi:null,fasilitas:[],foto_urls:['https://picsum.photos/seed/tanah1/800/600'],views:76,is_featured:false},
+  {id:'10',judul:'Rumah Cluster The Green Kediri',slug:'rumah-cluster-green-kediri',deskripsi:'Rumah cluster di The Green Kediri Residence. Lingkungan asri dengan banyak ruang terbuka hijau. One gate system, keamanan 24 jam. Dekat dengan RS Premier dan Tol Kediri.',harga:780000000,status:'dp0',tipe:'rumah',alamat:'The Green Kediri Residence Blok A-5, Kediri',city_name:'Kediri',lat:-7.8232,lng:112.0149,luas_tanah:100,luas_bangunan:70,kamar_tidur:3,kamar_mandi:2,lantai:2,tahun_bangun:2023,sertifikat:'SHM',kondisi:'Baru',fasilitas:['Carport','Clubhouse','Jogging Track','Taman'],foto_urls:['https://picsum.photos/seed/kediri1/800/600','https://picsum.photos/seed/kediri1b/800/600'],views:112,is_featured:false},
+];
+
+const ARTICLES = [
+  {id:1,judul:'Tips Beli Rumah Pertama di Surabaya 2026',slug:'tips-beli-rumah-pertama-surabaya',excerpt:'Panduan lengkap untuk first home buyer di Surabaya. Dari memilih lokasi, menghitung kemampuan finansial, hingga proses KPR yang tepat.',kategori:'Tips Pembeli',foto:'https://picsum.photos/seed/blog1/800/400',tanggal:'15 Jan 2026'},
+  {id:2,judul:'5 Kawasan Investasi Properti Terbaik di Jawa Timur',slug:'kawasan-investasi-properti-jatim',excerpt:'Analisis mendalam tentang area dengan potensi kenaikan harga properti tertinggi di Jatim. Sidoarjo dan Gresik masuk daftar.',kategori:'Investasi',foto:'https://picsum.photos/seed/blog2/800/400',tanggal:'28 Des 2025'},
+  {id:3,judul:'Mengapa Skor Lokasi Penting Saat Pilih Rumah?',slug:'pentingnya-skor-lokasi',excerpt:'Skor lokasi bisa menentukan kenyamanan dan nilai jual kembali properti Anda. Simak cara menghitung dan menginterpretasikan skor lokasi.',kategori:'Edukasi',foto:'https://picsum.photos/seed/blog3/800/400',tanggal:'10 Des 2025'},
+  {id:4,judul:'Perbandingan KPR Bank BUMN vs Bank Swasta 2026',slug:'perbandingan-kpr-2026',excerpt:'Review bunga KPR, DP, dan fitur dari Bank BRI, BNI, Mandiri, BCAdan BTN. Mana yang paling menguntungkan?',kategori:'KPR',foto:'https://picsum.photos/seed/blog4/800/400',tanggal:'5 Nov 2025'},
+];
+
+// ========== UTILS ==========
+function formatRupiah(n){if(n>=1e9){const v=n/1e9;return`Rp ${v%1===0?v.toFixed(0):v.toFixed(1)} M`}if(n>=1e6){const v=n/1e6;return`Rp ${v%1===0?v.toFixed(0):v.toFixed(1)} Jt`}return new Intl.NumberFormat('id-ID',{style:'currency',currency:'IDR',minimumFractionDigits:0,maximumFractionDigits:0}).format(n)}
+function formatRupiahFull(n){return new Intl.NumberFormat('id-ID',{style:'currency',currency:'IDR',minimumFractionDigits:0,maximumFractionDigits:0}).format(n)}
+function getStatusLabel(s){return s==='dijual'?'Dijual':s==='disewa'?'Disewa':'DP 0%'}
+function getStatusColor(s){return s==='dijual'?'bg-primary-700 text-white':s==='disewa'?'bg-emerald-600 text-white':'bg-accent-500 text-white'}
+function calcDistance(lat1,lng1,lat2,lng2){const R=6371e3,dLat=(lat2-lat1)*Math.PI/180,dLng=(lng2-lng1)*Math.PI/180,a=Math.sin(dLat/2)**2+Math.cos(lat1*Math.PI/180)*Math.cos(lat2*Math.PI/180)*Math.sin(dLng/2)**2;return R*2*Math.atan2(Math.sqrt(a),Math.sqrt(1-a))}
+
+// ========== ROUTING ==========
+let currentPage = 'home';
+let currentDetailSlug = '';
+let editingId = null;
+
+function navigate(page, slug) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  currentPage = page;
+  if (slug) currentDetailSlug = slug;
+
+  switch(page) {
+    case 'home': document.getElementById('page-home').classList.add('active'); break;
+    case 'listing': document.getElementById('page-listing').classList.add('active'); renderListing(); break;
+    case 'detail': document.getElementById('page-detail').classList.add('active'); renderDetail(slug); break;
+    case 'dashboard': document.getElementById('page-dashboard').classList.add('active'); renderDashboard(); break;
+    case 'login': document.getElementById('page-login').classList.add('active'); break;
+    case 'kpr': document.getElementById('page-kpr').classList.add('active'); calcKPR(); break;
+    case 'blog': document.getElementById('page-blog').classList.add('active'); renderBlog(); break;
+  }
+  window.scrollTo({top: 0, behavior: 'smooth'});
+  lucide.createIcons();
+}
+
+function toggleMobileMenu() {
+  const m = document.getElementById('mobileMenu');
+  m.classList.toggle('hidden');
+}
+
+// ========== PROPERTY CARD ==========
+function propertyCardHTML(p) {
+  const statusBadge = `<span class="inline-block px-2 py-0.5 rounded text-xs font-semibold ${getStatusColor(p.status)}">${getStatusLabel(p.status)}</span>`;
+  const featuredBadge = p.is_featured ? '<span class="inline-block px-2 py-0.5 rounded text-xs font-semibold bg-yellow-500 text-white">⭐ Unggulan</span>' : '';
+  const specs = p.tipe !== 'tanah' ? `
+    ${p.kamar_tidur?`<span class="flex items-center gap-1"><i data-lucide="bed" class="w-3.5 h-3.5"></i>${p.kamar_tidur} KT</span>`:''}
+    ${p.kamar_mandi?`<span class="flex items-center gap-1"><i data-lucide="bath" class="w-3.5 h-3.5"></i>${p.kamar_mandi} KM</span>`:''}
+    <span class="flex items-center gap-1"><i data-lucide="maximize" class="w-3.5 h-3.5"></i>${p.luas_bangunan}m²</span>
+  ` : `<span class="flex items-center gap-1"><i data-lucide="maximize" class="w-3.5 h-3.5"></i>LT ${p.luas_tanah}m²</span>`;
+
+  return `
+  <div onclick="navigate('detail','${p.slug}')" class="group cursor-pointer bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+    <div class="relative aspect-[4/3] overflow-hidden bg-gray-100">
+      <img src="${p.foto_urls[0]}" alt="${p.judul}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy">
+      <div class="absolute top-3 left-3 flex gap-2">${statusBadge}${featuredBadge}</div>
+      <div class="absolute bottom-3 right-3"><span class="inline-block px-2 py-0.5 rounded bg-black/60 text-white backdrop-blur-sm text-xs">${p.tipe.charAt(0).toUpperCase()+p.tipe.slice(1)}</span></div>
+    </div>
+    <div class="p-4">
+      <h3 class="font-bold text-gray-900 line-clamp-2 text-sm leading-snug group-hover:text-primary-700 transition-colors">${p.judul}</h3>
+      <div class="flex items-center gap-1 text-gray-400 text-xs mt-2 mb-3"><i data-lucide="map-pin" class="w-3.5 h-3.5 shrink-0"></i><span class="line-clamp-1">${p.alamat}</span></div>
+      <div class="flex items-center gap-4 text-xs text-gray-500 mb-3">${specs}</div>
+      <div class="flex items-center justify-between pt-3 border-t border-gray-50">
+        <span class="font-bold text-base text-accent-600">${formatRupiah(p.harga)}</span>
+        <span class="text-xs text-gray-400">LT ${p.luas_tanah}/LB ${p.luas_bangunan}</span>
+      </div>
+      ${p.sertifikat?`<div class="mt-2"><span class="inline-block px-2 py-0.5 rounded bg-gray-100 text-gray-500 text-[10px]">${p.sertifikat}</span></div>`:''}
+    </div>
+  </div>`;
+}
+
+// ========== HOME PAGE ==========
+function renderHome() {
+  // Populate hero kota select
+  const heroKota = document.getElementById('heroKota');
+  const filterKota = document.getElementById('filterKota');
+  const fKota = document.getElementById('fKota');
+  CITIES.forEach(c => {
+    heroKota.innerHTML += `<option value="${c}">${c}</option>`;
+    filterKota.innerHTML += `<option value="${c}">${c}</option>`;
+    fKota.innerHTML += `<option value="${c}">${c}</option>`;
+  });
+
+  // Featured grid
+  const featured = properties.filter(p => p.is_featured).slice(0, 6);
+  document.getElementById('featuredGrid').innerHTML = featured.map(propertyCardHTML).join('');
+
+  // Cities grid
+  const icons = ['building-2','trees','landmark','home','home'];
+  document.getElementById('citiesGrid').innerHTML = CITIES.slice(0,5).map((c,i) => `
+    <div onclick="navigate('listing');setFilterKota('${c}')" class="group cursor-pointer bg-white rounded-xl p-5 text-center border border-gray-100 hover:border-primary-200 hover:shadow-lg transition-all">
+      <i data-lucide="${icons[i]||'home'}" class="w-8 h-8 mx-auto text-gray-400 group-hover:text-primary-700 transition-colors mb-3"></i>
+      <div class="font-semibold text-gray-900 group-hover:text-primary-700 transition-colors">${c}</div>
+      <div class="text-xs text-gray-400 mt-1">${CITY_COUNTS[c]||'20+'} listing</div>
+    </div>
+  `).join('');
+
+  lucide.createIcons();
+}
+
+function searchFromHero() {
+  const kota = document.getElementById('heroKota').value;
+  const tipe = document.getElementById('heroTipe').value;
+  navigate('listing');
+  if(kota) document.getElementById('filterKota').value = kota;
+  if(tipe) document.getElementById('filterTipe').value = tipe;
+  applyFilters();
+}
+
+function setFilterKota(kota) {
+  setTimeout(() => { document.getElementById('filterKota').value = kota; applyFilters(); }, 100);
+}
+function setFilterTipe(tipe) {
+  setTimeout(() => { document.getElementById('filterTipe').value = tipe; applyFilters(); }, 100);
+}
+
+// ========== LISTING PAGE ==========
+let listingPage = 1;
+const PER_PAGE = 6;
+
+function applyFilters() { listingPage = 1; renderListing(); }
+
+function renderListing() {
+  const kota = document.getElementById('filterKota')?.value || '';
+  const tipe = document.getElementById('filterTipe')?.value || '';
+  const status = document.getElementById('filterStatus')?.value || '';
+  const hargaRange = document.getElementById('filterHarga')?.value || '';
+
+  let filtered = [...properties];
+  if(kota) filtered = filtered.filter(p => p.city_name === kota);
+  if(tipe) filtered = filtered.filter(p => p.tipe === tipe);
+  if(status) filtered = filtered.filter(p => p.status === status);
+  if(hargaRange) {
+    const [min,max] = hargaRange.split('-').map(Number);
+    filtered = filtered.filter(p => p.harga >= min && p.harga <= max);
+  }
+
+  document.getElementById('listingCount').textContent = `${filtered.length} properti ditemukan${kota ? ` di ${kota}` : ''}`;
+
+  // Quick filters
+  document.getElementById('quickFilters').innerHTML = CITIES.slice(0,5).map(c =>
+    `<button onclick="document.getElementById('filterKota').value='${c}';applyFilters()" class="px-3 py-1.5 rounded-full text-sm font-medium border transition-colors ${kota===c?'bg-primary-700 text-white border-primary-700':'bg-white text-gray-600 border-gray-200 hover:border-primary-300 hover:text-primary-700'}">${c}</button>`
+  ).join('') + `<span class="px-2 text-gray-300">|</span>` +
+  ['rumah','apartemen','ruko','tanah','villa'].map(t =>
+    `<button onclick="document.getElementById('filterTipe').value='${t}';applyFilters()" class="px-3 py-1.5 rounded-full text-sm font-medium border transition-colors ${tipe===t?'bg-primary-700 text-white border-primary-700':'bg-white text-gray-600 border-gray-200 hover:border-primary-300 hover:text-primary-700'}">${t.charAt(0).toUpperCase()+t.slice(1)}</button>`
+  ).join('');
+
+  const totalPages = Math.ceil(filtered.length / PER_PAGE);
+  const paged = filtered.slice((listingPage-1)*PER_PAGE, listingPage*PER_PAGE);
+
+  if(paged.length > 0) {
+    document.getElementById('listingGrid').innerHTML = paged.map(propertyCardHTML).join('');
+  } else {
+    document.getElementById('listingGrid').innerHTML = `<div class="col-span-full text-center py-20"><div class="text-4xl mb-3">🏠</div><p class="text-gray-500">Belum ada properti yang cocok dengan filter Anda.</p><button onclick="resetFilters()" class="text-primary-700 font-medium mt-2">Reset Filter</button></div>`;
+  }
+
+  document.getElementById('pagination').innerHTML = totalPages > 1 ? Array.from({length:totalPages},(_,i)=>i+1).map(p =>
+    `<button onclick="listingPage=${p};renderListing()" class="w-10 h-10 rounded-lg flex items-center justify-center text-sm font-medium transition-colors ${p===listingPage?'bg-primary-700 text-white':'bg-white text-gray-600 border border-gray-200 hover:bg-gray-50'}">${p}</button>`
+  ).join('') : '';
+
+  lucide.createIcons();
+}
+
+function resetFilters() {
+  document.getElementById('filterKota').value = '';
+  document.getElementById('filterTipe').value = '';
+  document.getElementById('filterStatus').value = '';
+  document.getElementById('filterHarga').value = '';
+  applyFilters();
+}
+
+// ========== DETAIL PAGE ==========
+function renderDetail(slug) {
+  const p = properties.find(x => x.slug === slug || x.id === slug);
+  if(!p) { document.getElementById('detailContent').innerHTML = '<p class="text-center py-20">Properti tidak ditemukan.</p>'; return; }
+
+  p.views++;
+
+  const waMsg = encodeURIComponent(`Halo, saya tertarik dengan properti di ${p.alamat} harga ${formatRupiahFull(p.harga)}. Bisa info lebih lanjut?`);
+  const waLink = `https://wa.me/6281234567890?text=${waMsg}`;
+
+  const specs = [
+    p.kamar_tidur ? {icon:'bed',label:'Kamar Tidur',value:`${p.kamar_tidur}`} : null,
+    p.kamar_mandi ? {icon:'bath',label:'Kamar Mandi',value:`${p.kamar_mandi}`} : null,
+    {icon:'maximize',label:'Luas Tanah',value:`${p.luas_tanah} m²`},
+    {icon:'home',label:'Luas Bangunan',value:`${p.luas_bangunan} m²`},
+    p.lantai ? {icon:'ruler',label:'Jumlah Lantai',value:`${p.lantai}`} : null,
+    p.tahun_bangun ? {icon:'calendar',label:'Tahun Bangun',value:`${p.tahun_bangun}`} : null,
+    p.sertifikat ? {icon:'file-text',label:'Sertifikat',value:p.sertifikat} : null,
+    p.kondisi ? {icon:'award',label:'Kondisi',value:p.kondisi} : null,
+  ].filter(Boolean);
+
+  const thumbnails = p.foto_urls.length > 1 ? `<div class="flex gap-2 mt-3 overflow-x-auto pb-2">${p.foto_urls.map((u,i) => `<img src="${u}" alt="Foto ${i+1}" class="w-24 h-20 sm:w-32 sm:h-24 rounded-lg object-cover shrink-0 border-2 border-transparent hover:border-primary-500 cursor-pointer transition-colors" loading="lazy">`).join('')}</div>` : '';
+
+  // Simulated POI data based on city
+  const poiData = generatePOIData(p);
+
+  document.getElementById('detailContent').innerHTML = `
+    <nav class="flex items-center gap-2 text-sm text-gray-400 mb-6">
+      <a href="#/" onclick="navigate('home')" class="hover:text-primary-700">Beranda</a><span>/</span>
+      <a href="#/properti" onclick="navigate('listing')" class="hover:text-primary-700">Properti</a><span>/</span>
+      <span class="text-gray-600 line-clamp-1">${p.judul}</span>
+    </nav>
+    <a href="#/properti" onclick="navigate('listing')" class="lg:hidden inline-flex items-center gap-1 text-sm text-primary-700 font-medium mb-4"><i data-lucide="arrow-left" class="w-4 h-4"></i> Kembali</a>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <div class="lg:col-span-2 space-y-8">
+        <!-- Gallery -->
+        <div>
+          <div class="relative rounded-2xl overflow-hidden aspect-[16/10] bg-gray-100">
+            <img id="mainPhoto" src="${p.foto_urls[0]}" alt="${p.judul}" class="w-full h-full object-cover">
+            <div class="absolute top-4 left-4"><span class="inline-block px-3 py-1 rounded text-sm font-semibold ${getStatusColor(p.status)}">${getStatusLabel(p.status)}</span></div>
+          </div>
+          ${thumbnails}
+        </div>
+
+        <!-- Title -->
+        <div>
+          <h1 class="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900 mb-3">${p.judul}</h1>
+          <div class="flex items-center gap-2 text-gray-400 text-sm mb-4"><i data-lucide="map-pin" class="w-4 h-4"></i>${p.alamat}</div>
+          <div class="flex items-baseline gap-3">
+            <span class="text-2xl sm:text-3xl font-bold text-accent-600">${formatRupiahFull(p.harga)}</span>
+            ${p.status==='disewa'?'<span class="text-gray-400">/bulan</span>':''}
+          </div>
+        </div>
+
+        <hr class="border-gray-100">
+
+        <!-- Specs -->
+        <div>
+          <h2 class="text-lg font-bold text-gray-900 mb-4">Spesifikasi</h2>
+          <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+            ${specs.map(s => `<div class="bg-gray-50 rounded-xl p-4 flex items-center gap-3"><div class="text-primary-700"><i data-lucide="${s.icon}" class="w-5 h-5"></i></div><div><div class="text-xs text-gray-400">${s.label}</div><div class="font-semibold text-gray-900">${s.value}</div></div></div>`).join('')}
+          </div>
+        </div>
+
+        <hr class="border-gray-100">
+
+        <!-- Description -->
+        <div>
+          <h2 class="text-lg font-bold text-gray-900 mb-3">Deskripsi</h2>
+          <p class="text-gray-600 leading-relaxed whitespace-pre-line">${p.deskripsi}</p>
+        </div>
+
+        ${p.fasilitas.length > 0 ? `<hr class="border-gray-100"><div><h2 class="text-lg font-bold text-gray-900 mb-3">Fasilitas</h2><div class="flex flex-wrap gap-2">${p.fasilitas.map(f=>`<span class="inline-block px-3 py-1.5 rounded-full bg-gray-100 text-sm text-gray-700">✅ ${f}</span>`).join('')}</div></div>` : ''}
+
+        <hr class="border-gray-100">
+
+        <!-- ★★★ ANALISA LOKASI ★★★ -->
+        <div>
+          <div class="flex items-center gap-2 mb-6">
+            <div class="w-8 h-8 rounded-lg bg-primary-100 flex items-center justify-center"><i data-lucide="map-pin" class="w-4 h-4 text-primary-700"></i></div>
+            <div><h2 class="text-lg font-bold text-gray-900">Analisa Lokasi Bangunan Sekitar</h2><p class="text-sm text-gray-400">Deteksi otomatis fasilitas & skor lokasi</p></div>
+          </div>
+
+          <!-- Location Score -->
+          <div class="bg-gradient-to-r from-primary-700 to-primary-900 rounded-2xl p-6 text-white mb-6">
+            <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4">
+              <div class="text-center sm:text-left">
+                <div class="text-sm text-primary-200 mb-1">Skor Lokasi</div>
+                <div class="flex items-baseline gap-1"><span class="text-5xl font-bold text-accent-400">${poiData.score}</span><span class="text-2xl text-primary-300">/10</span></div>
+              </div>
+              <div class="flex-1">
+                <span class="inline-block px-3 py-1 rounded-full bg-accent-500 text-white text-sm font-semibold mb-2">${poiData.label}</span>
+                ${poiData.highlight ? `<p class="text-primary-200 text-sm">${poiData.highlight}</p>` : ''}
+              </div>
+            </div>
+            ${poiData.travelTimes.length > 0 ? `
+            <div class="mt-5 pt-5 border-t border-white/10">
+              <div class="text-xs text-primary-300 mb-3 font-semibold uppercase tracking-wider">Estimasi Waktu Tempuh</div>
+              <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
+                ${poiData.travelTimes.map(t => `<div class="bg-white/10 rounded-lg p-3"><div class="text-xs text-primary-200 line-clamp-1">${t.dest}</div><div class="text-sm font-bold mt-1">🏍 ${t.time}</div><div class="text-xs text-primary-300">${t.dist}</div></div>`).join('')}
+              </div>
+            </div>` : ''}
+          </div>
+
+          <!-- Radius selector -->
+          <div class="flex flex-wrap items-center gap-2 mb-4">
+            <span class="text-sm font-semibold text-gray-700">Radius:</span>
+            ${[500,1000,3000,5000].map(r => `<button onclick="updateRadius(${r},'${p.slug}')" class="radius-btn px-3 py-1.5 rounded-lg text-sm font-medium border transition-colors ${r===3000?'bg-primary-700 text-white border-primary-700':'bg-white text-gray-600 border-gray-200 hover:border-primary-300'}" data-radius="${r}">${r>=1000?(r/1000)+'km':r+'m'}</button>`).join('')}
+          </div>
+
+          <!-- Map + POI list -->
+          <div class="grid grid-cols-1 lg:grid-cols-5 gap-4">
+            <div class="lg:col-span-3 rounded-xl overflow-hidden border border-gray-200 bg-gray-100 relative" style="height:500px">
+              <iframe src="https://maps.google.com/maps?q=${p.lat},${p.lng}&z=15&output=embed" width="100%" height="100%" style="border:0" allowfullscreen loading="lazy" class="w-full h-full"></iframe>
+              <div class="absolute bottom-3 left-3 bg-white/90 backdrop-blur-sm rounded-lg px-3 py-2 text-xs text-gray-500 flex items-center gap-1"><i data-lucide="info" class="w-3 h-3"></i>Peta lokasi ${p.city_name}</div>
+            </div>
+            <div class="lg:col-span-2 bg-white rounded-xl border border-gray-200 overflow-hidden">
+              <div class="flex border-b border-gray-200 bg-gray-50 overflow-x-auto" id="poiTabs-${p.id}">
+                ${[{key:'education',icon:'🎓',label:'Pendidikan'},{key:'health',icon:'🏥',label:'Kesehatan'},{key:'shopping',icon:'🛒',label:'Belanja'},{key:'transport',icon:'🚉',label:'Transportasi'},{key:'worship',icon:'🕌',label:'Ibadah'}].map((cat,i) => `
+                  <button onclick="switchPOITab('${cat.key}','${p.id}')" class="poi-tab-${p.id} flex-1 min-w-0 py-3 px-2 text-xs font-medium border-b-2 transition-colors ${i===0?'bg-white border-primary-700 text-primary-700':'border-transparent text-gray-500 hover:text-gray-700'}" data-cat="${cat.key}">
+                    <span class="mr-1">${cat.icon}</span><span class="hidden sm:inline">${cat.label}</span>
+                    ${poiData.pois[cat.key].length > 0 ? `<span class="ml-1 text-[10px] px-1.5 py-0 rounded bg-gray-100">${poiData.pois[cat.key].length}</span>` : ''}
+                  </button>
+                `).join('')}
+              </div>
+              <div id="poiContent-${p.id}" class="max-h-[400px] overflow-y-auto">
+                ${renderPOIList(poiData.pois.education, 'education')}
+              </div>
+              <div class="border-t border-gray-100 p-4 bg-gray-50">
+                <div class="text-xs font-semibold text-gray-500 mb-2 uppercase tracking-wider">Ringkasan Fasilitas</div>
+                <div class="grid grid-cols-2 gap-2 text-sm">
+                  ${[{key:'education',icon:'🎓',label:'Pendidikan'},{key:'health',icon:'🏥',label:'Kesehatan'},{key:'shopping',icon:'🛒',label:'Belanja'},{key:'transport',icon:'🚉',label:'Transportasi'},{key:'worship',icon:'🕌',label:'Ibadah'}].map(cat => `
+                    <div class="flex items-center gap-2"><span>${cat.icon}</span><span class="text-gray-600">${cat.label}:</span><span class="font-bold text-gray-900">${poiData.pois[cat.key].length}</span></div>
+                  `).join('')}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sidebar -->
+      <div class="space-y-6">
+        <div class="bg-white rounded-2xl border border-gray-200 p-6 sticky top-20">
+          <div class="text-center mb-4">
+            <div class="w-16 h-16 rounded-full bg-primary-100 flex items-center justify-center mx-auto mb-3"><i data-lucide="phone" class="w-6 h-6 text-primary-700"></i></div>
+            <h3 class="font-bold text-gray-900">Hubungi Agen</h3>
+            <p class="text-sm text-gray-400 mt-1">Respons dalam 5 menit</p>
+          </div>
+          <div class="space-y-3">
+            <a href="${waLink}" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-2 w-full h-12 bg-green-500 hover:bg-green-600 text-white rounded-xl font-semibold transition-colors"><i data-lucide="message-circle" class="w-5 h-5"></i>Chat WhatsApp</a>
+            <a href="tel:6281234567890" class="flex items-center justify-center gap-2 w-full h-12 bg-primary-700 hover:bg-primary-800 text-white rounded-xl font-semibold transition-colors"><i data-lucide="phone" class="w-5 h-5"></i>Telepon</a>
+          </div>
+          <hr class="my-4 border-gray-100">
+          <div class="space-y-3 text-sm">
+            <div class="flex justify-between"><span class="text-gray-400">Tipe</span><span class="font-medium capitalize">${p.tipe}</span></div>
+            <div class="flex justify-between"><span class="text-gray-400">Status</span><span class="font-medium">${getStatusLabel(p.status)}</span></div>
+            <div class="flex justify-between"><span class="text-gray-400">Sertifikat</span><span class="font-medium">${p.sertifikat||'-'}</span></div>
+            <div class="flex justify-between"><span class="text-gray-400">Dilihat</span><span class="font-medium">${p.views}x</span></div>
+          </div>
+        </div>
+
+        <!-- KPR Calculator -->
+        <div class="bg-white rounded-2xl border border-gray-200 p-6">
+          <div class="flex items-center gap-2 mb-6"><i data-lucide="calculator" class="w-5 h-5 text-primary-700"></i><h3 class="font-bold text-lg text-gray-900">Simulasi KPR</h3></div>
+          <div class="space-y-4">
+            <div><label class="block text-sm text-gray-600 mb-1">Harga Properti</label><input type="number" id="detailKprHarga" value="${p.harga}" oninput="calcDetailKPR()" class="w-full h-10 px-3 rounded-lg border border-gray-200 bg-gray-50 text-sm"></div>
+            <div><div class="flex justify-between"><label class="text-sm text-gray-600">DP</label><span id="detailKprDpLabel" class="text-sm font-semibold text-primary-700">20% = ${formatRupiahFull(p.harga*0.2)}</span></div><input type="range" id="detailKprDP" min="0" max="50" step="5" value="20" oninput="calcDetailKPR()" class="w-full mt-1"></div>
+            <div><div class="flex justify-between"><label class="text-sm text-gray-600">Tenor</label><span id="detailKprTenorLabel" class="text-sm font-semibold text-primary-700">20 tahun</span></div><input type="range" id="detailKprTenor" min="5" max="30" step="5" value="20" oninput="calcDetailKPR()" class="w-full mt-1"></div>
+            <div><div class="flex justify-between"><label class="text-sm text-gray-600">Bunga/tahun</label><span id="detailKprBungaLabel" class="text-sm font-semibold text-primary-700">7.5%</span></div><input type="range" id="detailKprBunga" min="3" max="15" step="0.5" value="7.5" oninput="calcDetailKPR()" class="w-full mt-1"></div>
+            <button onclick="document.getElementById('detailKprResult').classList.remove('hidden')" class="w-full h-11 bg-primary-700 hover:bg-primary-800 text-white rounded-lg font-semibold transition-colors">Hitung Cicilan</button>
+          </div>
+          <div id="detailKprResult" class="hidden mt-6 p-5 bg-primary-50 rounded-xl space-y-3">
+            <div class="text-center mb-3"><div class="text-sm text-gray-500">Cicilan per Bulan</div><div id="detailKprCicilan" class="text-2xl font-bold text-primary-700">Rp 0</div></div>
+            <div class="border-t border-primary-200"></div>
+            <div class="space-y-2 text-sm">
+              <div class="flex justify-between"><span class="text-gray-500">Uang Muka</span><span id="detailKprDpVal" class="font-medium">Rp 0</span></div>
+              <div class="flex justify-between"><span class="text-gray-500">Pinjaman</span><span id="detailKprPinjaman" class="font-medium">Rp 0</span></div>
+              <div class="flex justify-between"><span class="text-gray-500">Total Bunga</span><span id="detailKprTotalBunga" class="font-medium text-accent-600">Rp 0</span></div>
+              <div class="border-t border-primary-200 pt-2 flex justify-between font-semibold"><span>Total Bayar</span><span id="detailKprTotalBayar" class="text-primary-700">Rp 0</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
+
+  lucide.createIcons();
+  calcDetailKPR();
+}
+
+function switchPOITab(cat, propId) {
+  const poiData = generatePOIData(properties.find(p => p.slug === propId || p.id === propId));
+  document.querySelectorAll(`.poi-tab-${propId}`).forEach(t => {
+    t.classList.remove('bg-white','border-primary-700','text-primary-700');
+    t.classList.add('border-transparent','text-gray-500');
+  });
+  document.querySelector(`.poi-tab-${propId}[data-cat="${cat}"]`).classList.add('bg-white','border-primary-700','text-primary-700');
+  document.querySelector(`.poi-tab-${propId}[data-cat="${cat}"]`).classList.remove('border-transparent','text-gray-500');
+  document.getElementById(`poiContent-${propId}`).innerHTML = renderPOIList(poiData.pois[cat], cat);
+}
+
+function renderPOIList(pois, category) {
+  if(!pois.length) return `<div class="p-6 text-center text-gray-400 text-sm"><span class="text-2xl block mb-2">🔍</span>Tidak ditemukan dalam radius</div>`;
+  return pois.map(poi => `
+    <div class="px-4 py-3 hover:bg-gray-50 transition-colors border-b border-gray-50 last:border-0">
+      <div class="flex items-start justify-between gap-2">
+        <div class="min-w-0 flex-1">
+          <div class="text-sm font-medium text-gray-900 line-clamp-1">${poi.name}</div>
+          <div class="text-xs text-gray-400 mt-0.5">${poi.address||''}</div>
+          ${poi.rating ? `<div class="text-xs text-yellow-600 mt-0.5">⭐ ${poi.rating}</div>` : ''}
+        </div>
+        <span class="shrink-0 text-[10px] px-2 py-0.5 rounded font-medium bg-gray-100 text-gray-600">${poi.distance >= 1000 ? (poi.distance/1000).toFixed(1)+'km' : poi.distance+'m'}</span>
+      </div>
+    </div>
+  `).join('');
+}
+
+function generatePOIData(property) {
+  // Simulated POI data - in production this would use Google Maps Places API
+  const city = property.city_name;
+  const baseLat = property.lat;
+  const baseLng = property.lng;
+
+  const poiTemplates = {
+    education: [
+      {name:'SDN Sukolilo 1',address:'Jl. Sukolilo',distance:200,rating:4.2},
+      {name:'SMPN 5 Surabaya',address:'Jl. Rungkut',distance:450,rating:4.5},
+      {name:'SMAN 15 Surabaya',address:'Jl. Medokan',distance:800,rating:4.3},
+      {name:'Universitas ITS',address:'Kampus ITS Sukolilo',distance:1200,rating:4.7},
+      {name:'Universitas Airlangga',address:'Kampus B Unair',distance:1800,rating:4.8},
+      {name:'Politeknik Negeri Surabaya',address:'Jl. Raya ITS',distance:1500,rating:4.4},
+      {name:'SDN Rungkut 2',address:'Jl. Rungkut Menanggal',distance:600,rating:4.0},
+      {name:'TK Islam Terpadu',address:'Jl. Sukolilo Baru',distance:300,rating:4.6},
+    ],
+    health: [
+      {name:'RSUD Dr. Soetomo',address:'Jl. Mayjen Prof. Dr. Moestopo',distance:2500,rating:4.5},
+      {name:'RS Mitra Keluarga',address:'Jl. Darmo',distance:1800,rating:4.3},
+      {name:'Klinik Utama Sukolilo',address:'Jl. Sukolilo Baru',distance:400,rating:4.1},
+      {name:'Apotek Kimia Farma',address:'Jl. Rungkut',distance:500,rating:4.0},
+      {name:'Klinik Pratama UB',address:'Kampus Unair',distance:1600,rating:4.2},
+      {name:'Puskesmas Sukolilo',address:'Jl. Sukolilo',distance:350,rating:3.9},
+    ],
+    shopping: [
+      {name:'Tunjungan Plaza',address:'Jl. Tunjungan',distance:3200,rating:4.6},
+      {name:'Galaxy Mall',address:'Jl. Dharmahusada',distance:2000,rating:4.5},
+      {name:'Pakuwon Mall',address:'Jl. Bukit Darmo',distance:1500,rating:4.7},
+      {name:'Indomaret Sukolilo',address:'Jl. Sukolilo Baru',distance:150,rating:3.8},
+      {name:'Alfamat Rungkut',address:'Jl. Rungkut',distance:300,rating:3.7},
+      {name:'Superindo Pandaan',address:'Jl. Raya',distance:900,rating:4.0},
+      {name:'Pasar Tradisional Sukolilo',address:'Jl. Sukolilo',distance:600,rating:3.5},
+    ],
+    transport: [
+      {name:'Stasiun Gubeng',address:'Jl. Gubeng',distance:4500,rating:4.2},
+      {name:'Terminal Bungurasih',address:'Jl. Bungurasih',distance:5000,rating:3.8},
+      {name:'Halte Bus Rapid',address:'Jl. Dharmahusada',distance:800,rating:3.9},
+      {name:'Stasiun Wonokromo',address:'Jl. Wonokromo',distance:3800,rating:4.0},
+      {name:'Exit Tol Waru',address:'Tol Waru',distance:2500,rating:4.1},
+    ],
+    worship: [
+      {name:'Masjid Al-Akbar',address:'Jl. Mesjid Al Akbar',distance:2000,rating:4.8},
+      {name:'Masjid Sukolilo',address:'Jl. Sukolilo',distance:200,rating:4.3},
+      {name:'Masjid Rungkut',address:'Jl. Rungkut',distance:500,rating:4.1},
+      {name:'Gereja Protestan',address:'Jl. Dharmahusada',distance:1500,rating:4.0},
+      {name:'Musholla Al-Ikhlas',address:'Jl. Sukolilo Baru',distance:100,rating:4.2},
+      {name:'Pura Jagatnatha',address:'Jl. Pemuda',distance:4000,rating:4.4},
+    ],
+  };
+
+  // Adjust names based on city
+  if(city === 'Malang') {
+    poiTemplates.education = [
+      {name:'Universitas Brawijaya',address:'Jl. Veteran',distance:800,rating:4.8},
+      {name:'UM Malang',address:'Jl. Semarang',distance:1500,rating:4.6},
+      {name:'SMPN 1 Malang',address:'Jl. Tugu',distance:600,rating:4.4},
+      {name:'SMAN 5 Malang',address:'Jl. Besar Ijen',distance:900,rating:4.3},
+      {name:'SDN Dinoyo 1',address:'Jl. Dinoyo',distance:300,rating:4.1},
+    ];
+    poiTemplates.health = [
+      {name:'RSUD Saiful Anwar',address:'Jl. Jaksa Agung Suprapto',distance:2000,rating:4.5},
+      {name:'RS Lavalette',address:'Jl. Besar Ijen',distance:1200,rating:4.3},
+      {name:'Klinik Utama UB',address:'Kampus UB',distance:700,rating:4.2},
+      {name:'Apotek K24 Malang',address:'Jl. MT Haryono',distance:400,rating:4.0},
+    ];
+    poiTemplates.shopping = [
+      {name:'Malang Town Square',address:'Jl. Veteran',distance:600,rating:4.5},
+      {name:'Matahari Dept Store',address:'Jl. Tugu',distance:1200,rating:4.3},
+      {name:'Alfamart Dinoyo',address:'Jl. Dinoyo',distance:200,rating:3.8},
+    ];
+    poiTemplates.transport = [
+      {name:'Stasiun Malang Kota Baru',address:'Jl. Trunojoyo',distance:2500,rating:4.2},
+      {name:'Terminal Arjosari',address:'Jl. Ahmad Yani',distance:4000,rating:3.8},
+      {name:'Stasiun Kotalama',address:'Jl. Kotalama',distance:3500,rating:4.0},
+    ];
+    poiTemplates.worship = [
+      {name:'Masjid Jami Malang',address:'Jl. Tugu',distance:1000,rating:4.5},
+      {name:'Masjid UB',address:'Kampus UB',distance:750,rating:4.6},
+      {name:'Gereja Kayutaran',address:'Jl. Kayutaran',distance:1500,rating:4.1},
+    ];
+  } else if(city !== 'Surabaya') {
+    // Generic for other cities
+    Object.keys(poiTemplates).forEach(cat => {
+      poiTemplates[cat] = poiTemplates[cat].map(poi => ({
+        ...poi,
+        name: poi.name.replace(/Surabaya|Sukolilo|Rungkuto/g, city),
+        distance: Math.round(poi.distance * (0.8 + Math.random() * 0.6)),
+      }));
+    });
+  }
+
+  // Add some randomness to distances
+  const addJitter = (pois) => pois.map(p => ({...p, distance: Math.max(50, p.distance + Math.round((Math.random()-0.5)*200))}));
+
+  const pois = {
+    education: addJitter(poiTemplates.education).sort((a,b) => a.distance - b.distance),
+    health: addJitter(poiTemplates.health).sort((a,b) => a.distance - b.distance),
+    shopping: addJitter(poiTemplates.shopping).sort((a,b) => a.distance - b.distance),
+    transport: addJitter(poiTemplates.transport).sort((a,b) => a.distance - b.distance),
+    worship: addJitter(poiTemplates.worship).sort((a,b) => a.distance - b.distance),
+  };
+
+  // Calculate score
+  let score = 4.0;
+  if(pois.education.length >= 5) score += 1.5; else if(pois.education.length >= 3) score += 1.0; else if(pois.education.length >= 1) score += 0.5;
+  if(pois.education.some(p => p.name.includes('Universitas') && p.distance < 2000)) score += 0.5;
+  if(pois.health.length >= 3) score += 1.0; else if(pois.health.length >= 1) score += 0.5;
+  if(pois.health.some(p => p.name.includes('RS') && p.distance < 2500)) score += 0.5;
+  if(pois.shopping.length >= 5) score += 0.8; else if(pois.shopping.length >= 2) score += 0.4;
+  if(pois.transport.length >= 2) score += 0.7; else if(pois.transport.length >= 1) score += 0.3;
+  if(pois.worship.length >= 3) score += 0.5; else if(pois.worship.length >= 1) score += 0.2;
+  const allPois = [...Object.values(pois)].flat();
+  if(allPois.filter(p => p.distance < 500).length >= 5) score += 0.5; else if(allPois.filter(p => p.distance < 500).length >= 2) score += 0.2;
+  score = Math.min(10, Math.max(1, Math.round(score * 10) / 10));
+
+  const label = score >= 8.5 ? 'Sangat Strategis' : score >= 7.0 ? 'Strategis' : score >= 5.5 ? 'Cukup Strategis' : score >= 4.0 ? 'Standar' : 'Perlu Pertimbangan';
+
+  const highlights = [];
+  const uni = pois.education.find(p => p.name.includes('Universitas'));
+  if(uni) highlights.push(`Dekat ${uni.name}`);
+  const hosp = pois.health.find(p => p.name.includes('RS'));
+  if(hosp) highlights.push(`Dekat ${hosp.name}`);
+  const mall = pois.shopping.find(p => p.name.includes('Mall') || p.name.includes('Plaza'));
+  if(mall) highlights.push(`Dekat ${mall.name}`);
+
+  const travelTimes = [];
+  const destinations = [uni, hosp, mall, pois.transport[0]].filter(Boolean);
+  destinations.forEach(d => {
+    const minutes = Math.max(2, Math.round(d.distance / 350)); // ~350m/min by motor
+    travelTimes.push({ dest: d.name.split(' ').slice(0,2).join(' '), time: `${minutes} menit`, dist: d.distance >= 1000 ? (d.distance/1000).toFixed(1)+' km' : d.distance+' m' });
+  });
+
+  return { pois, score, label, highlight: highlights.slice(0,3).join(' + '), travelTimes: travelTimes.slice(0,5) };
+}
+
+function updateRadius(radius, slug) {
+  document.querySelectorAll('.radius-btn').forEach(b => {
+    b.classList.remove('bg-primary-700','text-white','border-primary-700');
+    b.classList.add('bg-white','text-gray-600','border-gray-200');
+  });
+  document.querySelector(`.radius-btn[data-radius="${radius}"]`).classList.add('bg-primary-700','text-white','border-primary-700');
+  document.querySelector(`.radius-btn[data-radius="${radius}"]`).classList.remove('bg-white','text-gray-600','border-gray-200');
+  // In production: re-fetch POIs from Places API with new radius
+  showToast('Radius diubah ke ' + (radius>=1000?(radius/1000)+'km':radius+'m') + ' (simulasi)');
+}
+
+// ========== KPR CALCULATOR ==========
+function calcKPR() {
+  const harga = Number(document.getElementById('kprHarga').value) || 0;
+  const dpP = Number(document.getElementById('kprDP').value) || 20;
+  const tenor = Number(document.getElementById('kprTenor').value) || 20;
+  const bunga = Number(document.getElementById('kprBunga').value) || 7.5;
+
+  const dp = harga * dpP / 100;
+  const pinjaman = harga - dp;
+  const bungaBulanan = bunga / 100 / 12;
+  const tenorBulan = tenor * 12;
+
+  document.getElementById('kprDpLabel').textContent = `${dpP}% = ${formatRupiahFull(dp)}`;
+  document.getElementById('kprTenorLabel').textContent = `${tenor} tahun`;
+  document.getElementById('kprBungaLabel').textContent = `${bunga}%`;
+
+  let cicilan, totalBunga, totalBayar;
+  if(bungaBulanan === 0) {
+    cicilan = pinjaman / tenorBulan;
+    totalBunga = 0;
+    totalBayar = pinjaman + dp;
+  } else {
+    cicilan = (pinjaman * bungaBulanan * Math.pow(1+bungaBulanan, tenorBulan)) / (Math.pow(1+bungaBulanan, tenorBulan) - 1);
+    totalBayar = cicilan * tenorBulan + dp;
+    totalBunga = cicilan * tenorBulan - pinjaman;
+  }
+
+  document.getElementById('kprCicilan').textContent = formatRupiahFull(Math.round(cicilan));
+  document.getElementById('kprDpVal').textContent = formatRupiahFull(dp);
+  document.getElementById('kprPinjaman').textContent = formatRupiahFull(pinjaman);
+  document.getElementById('kprTotalBunga').textContent = formatRupiahFull(Math.round(totalBunga));
+  document.getElementById('kprTotalBayar').textContent = formatRupiahFull(Math.round(totalBayar));
+}
+
+function calcDetailKPR() {
+  const harga = Number(document.getElementById('detailKprHarga')?.value) || 0;
+  const dpP = Number(document.getElementById('detailKprDP')?.value) || 20;
+  const tenor = Number(document.getElementById('detailKprTenor')?.value) || 20;
+  const bunga = Number(document.getElementById('detailKprBunga')?.value) || 7.5;
+
+  const dp = harga * dpP / 100;
+  const pinjaman = harga - dp;
+  const bungaBulanan = bunga / 100 / 12;
+  const tenorBulan = tenor * 12;
+
+  const dpLabel = document.getElementById('detailKprDpLabel');
+  const tenorLabel = document.getElementById('detailKprTenorLabel');
+  const bungaLabel = document.getElementById('detailKprBungaLabel');
+  if(dpLabel) dpLabel.textContent = `${dpP}% = ${formatRupiahFull(dp)}`;
+  if(tenorLabel) tenorLabel.textContent = `${tenor} tahun`;
+  if(bungaLabel) bungaLabel.textContent = `${bunga}%`;
+
+  let cicilan, totalBunga, totalBayar;
+  if(bungaBulanan === 0) {
+    cicilan = pinjaman / tenorBulan; totalBunga = 0; totalBayar = pinjaman + dp;
+  } else {
+    cicilan = (pinjaman * bungaBulanan * Math.pow(1+bungaBulanan, tenorBulan)) / (Math.pow(1+bungaBulanan, tenorBulan) - 1);
+    totalBayar = cicilan * tenorBulan + dp; totalBunga = cicilan * tenorBulan - pinjaman;
+  }
+
+  const el = (id) => document.getElementById(id);
+  if(el('detailKprCicilan')) el('detailKprCicilan').textContent = formatRupiahFull(Math.round(cicilan));
+  if(el('detailKprDpVal')) el('detailKprDpVal').textContent = formatRupiahFull(dp);
+  if(el('detailKprPinjaman')) el('detailKprPinjaman').textContent = formatRupiahFull(pinjaman);
+  if(el('detailKprTotalBunga')) el('detailKprTotalBunga').textContent = formatRupiahFull(Math.round(totalBunga));
+  if(el('detailKprTotalBayar')) el('detailKprTotalBayar').textContent = formatRupiahFull(Math.round(totalBayar));
+}
+
+// ========== DASHBOARD ==========
+function renderDashboard() {
+  const total = properties.length;
+  const views = properties.reduce((s,p) => s + p.views, 0);
+  const active = properties.filter(p => true).length;
+
+  document.getElementById('statTotal').textContent = total;
+  document.getElementById('statViews').textContent = views;
+  document.getElementById('statActive').textContent = active;
+
+  document.getElementById('dashTableBody').innerHTML = properties.map(p => `
+    <tr class="hover:bg-gray-50">
+      <td class="px-5 py-4"><div class="font-medium text-gray-900 line-clamp-1">${p.judul}</div><div class="text-xs text-gray-400">${p.city_name}</div></td>
+      <td class="px-5 py-4 font-semibold text-gray-900 hidden sm:table-cell">${formatRupiah(p.harga)}</td>
+      <td class="px-5 py-4"><span class="inline-block px-2 py-0.5 rounded-full text-xs font-medium ${getStatusColor(p.status)}">${getStatusLabel(p.status)}</span></td>
+      <td class="px-5 py-4 text-gray-500 hidden md:table-cell">${p.views}</td>
+      <td class="px-5 py-4 text-right flex gap-2 justify-end">
+        <button onclick="editProperty('${p.id}')" class="text-primary-700 hover:underline text-sm font-medium">Edit</button>
+        <button onclick="deleteProperty('${p.id}')" class="text-red-500 hover:underline text-sm font-medium">Hapus</button>
+      </td>
+    </tr>
+  `).join('');
+
+  lucide.createIcons();
+}
+
+function showAddForm() {
+  editingId = null;
+  document.getElementById('formTitle').textContent = 'Tambah Properti Baru';
+  ['fJudul','fHarga','fAlamat','fLT','fLB','fKT','fKM','fLat','fLng','fDeskripsi'].forEach(id => { const el = document.getElementById(id); if(el) el.value = ''; });
+  document.getElementById('fStatus').value = 'dijual';
+  document.getElementById('fTipe').value = 'rumah';
+  document.getElementById('fSertifikat').value = 'SHM';
+  document.getElementById('addFormModal').classList.remove('hidden');
+  document.getElementById('addFormModal').classList.add('flex');
+}
+
+function editProperty(id) {
+  const p = properties.find(x => x.id === id);
+  if(!p) return;
+  editingId = id;
+  document.getElementById('formTitle').textContent = 'Edit Properti';
+  document.getElementById('fJudul').value = p.judul;
+  document.getElementById('fHarga').value = p.harga;
+  document.getElementById('fAlamat').value = p.alamat;
+  document.getElementById('fStatus').value = p.status;
+  document.getElementById('fTipe').value = p.tipe;
+  document.getElementById('fKota').value = p.city_name;
+  document.getElementById('fLT').value = p.luas_tanah;
+  document.getElementById('fLB').value = p.luas_bangunan;
+  document.getElementById('fKT').value = p.kamar_tidur || '';
+  document.getElementById('fKM').value = p.kamar_mandi || '';
+  document.getElementById('fSertifikat').value = p.sertifikat || 'SHM';
+  document.getElementById('fLat').value = p.lat;
+  document.getElementById('fLng').value = p.lng;
+  document.getElementById('fDeskripsi').value = p.deskripsi || '';
+  document.getElementById('addFormModal').classList.remove('hidden');
+  document.getElementById('addFormModal').classList.add('flex');
+}
+
+function closeAddForm() {
+  document.getElementById('addFormModal').classList.add('hidden');
+  document.getElementById('addFormModal').classList.remove('flex');
+}
+
+function saveProperty() {
+  const judul = document.getElementById('fJudul').value.trim();
+  const harga = Number(document.getElementById('fHarga').value);
+  const alamat = document.getElementById('fAlamat').value.trim();
+  if(!judul || !harga || !alamat) { showToast('Mohon isi judul, harga, dan alamat', 'error'); return; }
+
+  const data = {
+    judul,
+    harga,
+    alamat,
+    status: document.getElementById('fStatus').value,
+    tipe: document.getElementById('fTipe').value,
+    city_name: document.getElementById('fKota').value || 'Surabaya',
+    luas_tanah: Number(document.getElementById('fLT').value) || 0,
+    luas_bangunan: Number(document.getElementById('fLB').value) || 0,
+    kamar_tidur: Number(document.getElementById('fKT').value) || null,
+    kamar_mandi: Number(document.getElementById('fKM').value) || null,
+    sertifikat: document.getElementById('fSertifikat').value,
+    lat: Number(document.getElementById('fLat').value) || -7.2575,
+    lng: Number(document.getElementById('fLng').value) || 112.7521,
+    deskripsi: document.getElementById('fDeskripsi').value,
+    slug: judul.toLowerCase().replace(/[^a-z0-9]+/g, '-') + '-' + Date.now(),
+    kondisi: 'Baru',
+    lantai: 1,
+    tahun_bangun: 2025,
+    fasilitas: [],
+    foto_urls: ['https://picsum.photos/seed/new' + Date.now() + '/800/600'],
+    views: 0,
+    is_featured: false,
+  };
+
+  if(editingId) {
+    const idx = properties.findIndex(p => p.id === editingId);
+    if(idx >= 0) { data.id = editingId; data.views = properties[idx].views; properties[idx] = data; }
+    showToast('Properti berhasil diperbarui!');
+  } else {
+    data.id = String(Date.now());
+    properties.push(data);
+    showToast('Properti berhasil ditambahkan!');
+  }
+
+  closeAddForm();
+  renderDashboard();
+}
+
+function deleteProperty(id) {
+  if(!confirm('Yakin ingin menghapus properti ini?')) return;
+  properties = properties.filter(p => p.id !== id);
+  showToast('Properti berhasil dihapus!');
+  renderDashboard();
+}
+
+// ========== LOGIN ==========
+function doLogin() {
+  const email = document.getElementById('loginEmail').value.trim();
+  const pass = document.getElementById('loginPass').value.trim();
+  if(!email || !pass) { showToast('Mohon isi email dan password', 'error'); return; }
+  showToast('Login berhasil! Selamat datang.');
+  navigate('dashboard');
+}
+
+// ========== BLOG ==========
+function renderBlog() {
+  document.getElementById('blogGrid').innerHTML = ARTICLES.map(a => `
+    <article class="bg-white rounded-2xl border border-gray-200 overflow-hidden hover:shadow-lg transition-shadow">
+      <img src="${a.foto}" alt="${a.judul}" class="w-full h-48 object-cover" loading="lazy">
+      <div class="p-5">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="px-2 py-0.5 rounded-full bg-primary-100 text-primary-700 text-xs font-medium">${a.kategori}</span>
+          <span class="text-xs text-gray-400">${a.tanggal}</span>
+        </div>
+        <h2 class="font-bold text-gray-900 text-lg mb-2 line-clamp-2">${a.judul}</h2>
+        <p class="text-gray-500 text-sm line-clamp-3">${a.excerpt}</p>
+        <button class="mt-4 text-primary-700 font-medium text-sm hover:underline">Baca Selengkapnya →</button>
+      </div>
+    </article>
+  `).join('');
+}
+
+// ========== TOAST ==========
+function showToast(message, type='success') {
+  const container = document.getElementById('toastContainer');
+  const toast = document.createElement('div');
+  toast.className = `toast px-4 py-3 rounded-lg shadow-lg text-sm font-medium ${type==='error'?'bg-red-600 text-white':'bg-primary-700 text-white'} flex items-center gap-2`;
+  toast.innerHTML = `<span>${type==='error'?'❌':'✅'}</span>${message}`;
+  container.appendChild(toast);
+  setTimeout(() => { toast.style.opacity = '0'; toast.style.transition = 'opacity 0.3s'; setTimeout(() => toast.remove(), 300); }, 3000);
+}
+
+// ========== INIT ==========
+function init() {
+  renderHome();
+  calcKPR();
+  lucide.createIcons();
+
+  // Handle hash routing
+  const handleHash = () => {
+    const hash = window.location.hash;
+    if(hash.includes('/properti/') && hash.split('/')[2]) {
+      const slug = hash.split('/')[2];
+      navigate('detail', slug);
+    } else if(hash.includes('/properti')) {
+      navigate('listing');
+    } else if(hash.includes('/dashboard')) {
+      navigate('dashboard');
+    } else if(hash.includes('/login')) {
+      navigate('login');
+    } else if(hash.includes('/kpr')) {
+      navigate('kpr');
+    } else if(hash.includes('/blog')) {
+      navigate('blog');
+    } else {
+      navigate('home');
+    }
+  };
+  window.addEventListener('hashchange', handleHash);
+  if(window.location.hash) handleHash();
+}
+
+document.addEventListener('DOMContentLoaded', init);
+</script>
+
+<!-- Schema.org JSON-LD -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "PropertiJatim.com",
+  "url": "https://propertijatim.com",
+  "description": "Platform jual beli properti di Jawa Timur dengan analisa lokasi cerdas",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "https://propertijatim.com/properti?q={search_term_string}",
+    "query-input": "required name=search_term_string"
+  }
+}
+</script>
+</body>
+</html>
